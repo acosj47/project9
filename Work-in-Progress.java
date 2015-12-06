@@ -45,9 +45,81 @@ void draw(){
   background(skyR, skyG, skyB);  // sky
   scene();
   info();
+  if(key >= 'A' && key <= 'Z'){
+   squidCard(ink, ink.length);
+   boatCard(navy, navy.length);
+  }else{
+     action();
+  }
   
   
 }
+
+void squidCard(Squid[] a, int m){
+  float x = width/2;  
+  float y = height/2;
+  float w = width/2;
+  float h = height/2 - 50;
+  fill(200);
+  rect(x-20, y-30, w, h);
+  fill(255, 0, 0);
+  textSize(20);
+  text("Squid Score Card", x, y);
+  textSize(12);
+  text("Name", x, y+30 );
+  text("Legs", x + 60, y+30);
+  text("X", x + 120, y+30);
+  text("Y", x + 200, y+30);
+  text("DY", x + 280, y+30);
+  
+ for(int i= 0; i < m; i++){
+   fill(0);
+   text(a[i].name, x, y+60);
+   text(a[i].legs, x + 60, y+60);
+   text(a[i].x, x + 120, y+60);
+   text(a[i].y, x + 200, y+60);
+   text(a[i].dy, x + 280, y+60);
+   y += 30;
+ }
+}
+
+void boatCard(Boat[] a, int m){
+  float x = width/4 - 150;  
+  float y = height/2 - 200;
+  float w = width/2 - 100;
+  float h = height/2 - 80;
+  fill(200);
+  rect(x-20, y-30, w, h);
+  fill(255, 0 ,0 );
+  textSize(20);
+  text("Boat Score Card", x, y);
+  textSize(12);
+  text("Name", x, y+30 );
+  text("Cargo", x + 60, y+30);
+  text("X", x + 120, y+30);
+  text("DX", x + 200, y+30);
+  
+ for(int i= 0; i < m; i++){
+   fill(0);
+   text(a[i].name, x, y+60);
+   text(a[i].cargo, x + 60, y+60);
+   text(a[i].x, x + 120, y+60);
+   text(a[i].dx, x + 200, y+60);
+   y += 30;
+ }
+}
+
+void action(){
+  for(int i = 0; i < ink.length; i++){
+    ink[i].move();
+  }
+   
+   for(int i = 0; i < navy.length; i++){
+         navy[i].move();
+   }
+  
+}
+
 // show the scene, sea, boat, sun, fish etc...
 void scene(){
   //text(navy[0].caught, width/2, horizon- 50);
@@ -59,12 +131,11 @@ void scene(){
   // show squid
   for(int i = 0; i < ink.length; i++){
     ink[i].show();
-    ink[i].move();
+    //ink[i].move();
   }
   // show boats
   for(int i = 0; i < navy.length; i++){
     navy[i].show();
-    navy[i].move();
   }
   
   star.show();
@@ -89,8 +160,110 @@ void scene(){
 }
 void info(){
   fill(0);
+  text("Justin Acosta", width/4 - 180, horizon - 125);
   text("Score", width*3/4 - 50, horizon - 100);
   text(score, width*3/4, horizon - 100);
+}
+// sort squid x coordinates
+void sortSquidX(Squid[] a, int many){
+  
+  for(int m = many ; m > 1; m--){
+    int k = 0;
+    for(int j = 1; j<m; j++){
+      if (a[j].x > a[k].x) k = j;
+        
+    }
+    
+    swapSquid(a, m-1, k);
+  }
+}
+// sort squid y
+void sortSquidY(Squid[] a, int many){
+  
+  for(int m = many ; m > 1; m--){
+    int k = 0;
+    for(int j = 1; j<m; j++){
+      if (a[j].y > a[k].y) k = j;
+        
+    }
+    
+    swapSquid(a, m-1, k);
+  }
+}
+// sort squid speed
+void sortSquidDY(Squid[] a, int many){
+  
+  for(int m = many ; m > 1; m--){
+    int k = 0;
+    for(int j = 1; j<m; j++){
+      if (a[j].dy > a[k].dy) k = j;
+        
+    }
+    
+    swapSquid(a, m-1, k);
+  }
+}
+
+void sortSquidLegs(Squid[] a, int many){
+  
+  for(int m = many ; m > 1; m--){
+    int k = 0;
+    for(int j = 1; j<m; j++){
+      if (a[j].legs > a[k].legs) k = j;
+        
+    }
+    
+    swapSquid(a, m-1, k);
+  }
+}
+
+// swap squid x, y, dy, legs and name
+void swapSquid(Squid[] a, int k, int j){
+  float tmp;
+  int tmp2;
+  String tmp3;
+  
+  tmp = a[k].x;
+  a[k].x = a[j].x;
+  a[j].x = tmp;
+  
+  tmp = a[k].y;
+  a[k].y = a[j].y;
+  a[j].y = tmp;
+  
+  tmp = a[k].dy;
+  a[k].dy = a[j].dy;
+  a[j].dy = tmp;
+  
+  tmp2 = a[k].legs;
+  a[k].legs = a[j].legs;
+  a[j].legs = tmp2;
+  
+  tmp3 = a[k].name;
+  a[k].name = a[j].name;
+  a[j].name = tmp3;
+  
+  
+ 
+  
+}
+
+void keyPressed(){
+  if(key == 'X'){
+    sortSquidX(ink, ink.length);
+  }
+ if (key == 'Y'){
+   sortSquidY(ink, ink.length);
+ }
+ if(key == 'S'){
+    sortSquidDY(ink, ink.length);
+ }
+ 
+ if(key == 'L'){
+   sortSquidLegs(ink, ink.length);
+}
+  
+
 }
 
 // squid class
