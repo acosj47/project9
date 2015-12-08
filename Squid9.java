@@ -337,8 +337,8 @@ class Squid {
   // bottom of the sea
   void bottom() {
     y = height - 30;
-    dy = -random(0.1, 0.9);
-    legs = int(random(1, 5)); 
+    dy = -random(0.5, 1.5);
+    legs = int(random(1, 6)); 
   }
   // show squid
   void show() {
