@@ -226,29 +226,12 @@ void sortSquidLegs(Squid[] a, int many) {
 
 // swap squid x, y, dy, legs and name
 void swapSquid(Squid[] a, int k, int j) {
-  float tmp;
-  int tmp2;
-  String tmp3;
+  Squid tmp;
 
-  tmp = a[k].x;
-  a[k].x = a[j].x;
-  a[j].x = tmp;
+  tmp = a[k];
+  a[k] = a[j];
+  a[j] = tmp;
 
-  tmp = a[k].y;
-  a[k].y = a[j].y;
-  a[j].y = tmp;
-
-  tmp = a[k].dy;
-  a[k].dy = a[j].dy;
-  a[j].dy = tmp;
-
-  tmp2 = a[k].legs;
-  a[k].legs = a[j].legs;
-  a[j].legs = tmp2;
-
-  tmp3 = a[k].name;
-  a[k].name = a[j].name;
-  a[j].name = tmp3;
 }
 
 // sort by boat x coordinate
@@ -286,25 +269,13 @@ void sortBoatCargo(Boat[] a, int many) {
 
 // swap boat x, dx, and cargo
 void swapBoat(Boat[] a, int k, int j) {
-  float tmp;
-  int tmp2;
-  String tmp3;
+  Boat tmp;
+  
+  tmp = a[k];
+  a[k] = a[j];
+  a[j] = tmp;
 
-  tmp = a[k].x;
-  a[k].x = a[j].x;
-  a[j].x = tmp;
-
-  tmp = a[k].dx;
-  a[k].dx = a[j].dx;
-  a[j].dx = tmp;
-
-  tmp2 = a[k].cargo;
-  a[k].cargo = a[j].cargo;
-  a[j].cargo = tmp2;
-
-  tmp3 = a[k].name;
-  a[k].name = a[j].name;
-  a[j].name = tmp3;
+  
 }
 
 void keyPressed() {
@@ -457,11 +428,11 @@ class Sun {
     if (x > width + 199) sunDown = !sunDown;
     // change from sun to moon
     if (!sunDown) {
-      r = 255;
+      r = 255; // Sun colors
       g = 255;
       b = 0;
     } else {
-      r = 150;
+      r = 150;  // Moon colors
       g = 150;
       b = 150;
     }
